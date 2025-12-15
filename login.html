@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script async defer src="https://{{ clerk_publishable_key }}.clerk.app/js/clerk.js"></script>
+</head>
+<body>
+    <div class="container" style="text-align: center;">
+        <header>
+            <h1>🔒 Expense Tracker Authentication</h1>
+        </header>
+        <p>Please sign in to access your dashboard.</p>
+        
+        <div id="sign-in-widget" style="margin: 30px auto;">
+            <button onclick="window.location.href='{{ url_for('login') }}'">
+                Mock Login (Replace with Clerk UI)
+            </button>
+        </div>
+        
+        </div>
+</body>
+</html>
