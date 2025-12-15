@@ -1,65 +1,81 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Expense Tracker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-      <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">ExpenseTracker</a>
-        <div>
-          {% if current_user.is_authenticated %}
-            <a class="btn btn-outline-primary me-2" href="{{ url_for('dashboard') }}">Dashboard</a>
-            <a class="btn btn-outline-secondary" href="{{ url_for('logout') }}">Logout</a>
-          {% else %}
-            <a class="btn btn-primary me-2" href="{{ url_for('login') }}">Login</a>
-            <a class="btn btn-outline-primary" href="{{ url_for('register') }}">Register</a>
-          {% endif %}
-        </div>
-      </div>
-    </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💸 Expense Tracker Dashboard</h1>
+            <a href="{{ url_for('logout') }}" style="color: #FF6347; text-decoration: none;">Logout</a>
+        </header>
 
-    <main class="container">
-      <div class="p-5 mb-4 bg-body rounded-3">
-        <div class="container-fluid py-5">
-          <h1 class="display-5 fw-bold">Track your expenses effortlessly</h1>
-          <p class="col-md-8 fs-4">Add expenses, categorize them, and get a simple summary with export capability.</p>
-          {% if not current_user.is_authenticated %}
-            <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}">Get Started</a>
-          {% else %}
-            <a class="btn btn-primary btn-lg" href="{{ url_for('dashboard') }}">Open Dashboard</a>
-          {% endif %}
+        <div class="wallet-box">
+            <h3>💳 Wallet Balance</h3>
+            <p>{{ "{:,.2f}".format(balance) }} {{ base_currency }}</p>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <h3>Features</h3>
-          <ul>
-            <li>Per-user expenses (private)</li>
-            <li>CSV export</li>
-            <li>Simple charts on dashboard</li>
-            <li>Secure login and registration</li>
-          </ul>
+        <div class="input-form">
+            <h2>➕ Add Transaction</h2>
+            <form action="{{ url_for('add_transaction') }}" method="POST">
+                
+                <select name="type" required>
+                    <option value="EXPENSE">Expense</option>
+                    <option value="INCOME">Income</option>
+                </select>
+
+                <input type="text" name="description" placeholder="Description (e.g., Groceries, Salary)" required>
+                
+                <input type="number" name="amount" step="0.01" min="0.01" placeholder="Amount" required>
+
+                <select name="currency" required>
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="INR">INR - Indian Rupee</option>
+                    </select>
+
+                <button type="submit">Add Transaction</button>
+            </form>
         </div>
-        <div class="col-md-6">
-          <h3>Quick Start</h3>
-          <ol>
-            <li>Register an account</li>
-            <li>Login</li>
-            <li>Add your first expense</li>
-          </ol>
+        
+        <hr style="border-color: #333; margin: 30px 0;">
+
+        <h2>📊 Transaction History</h2>
+        
+        <div style="margin-bottom: 20px;">
+            <a href="{{ url_for('generate_pdf_report') }}"><button style="background-color: #FF9800;">Download PDF Report</button></a>
+            <a href="{{ url_for('generate_chart') }}"><button style="background-color: #2196F3;">View Chart</button></a>
         </div>
-      </div>
-    </main>
 
-    <footer class="text-center mt-5 mb-4">
-      <small class="text-muted">© {{ current_user.username if current_user.is_authenticated else 'ExpenseTracker' }} {{ config.get('YEAR', '') }}</small>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+        <table class="transaction-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in transactions %}
+                {% set row_class = 'income-row' if t['type'] == 'INCOME' else 'expense-row' %}
+                <tr class="{{ row_class }}">
+                    <td>{{ t['type'] }}</td>
+                    <td>{{ t['description'] }}</td>
+                    <td>{{ "{:,.2f}".format(t['amount']) }}</td>
+                    <td>{{ t['currency'] }}</td>
+                    <td>{{ t['date'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if not transactions %}
+        <p style="text-align: center;">No transactions found. Start adding some!</p>
+        {% endif %}
+    </div>
+</body>
 </html>
