@@ -1,0 +1,104 @@
+/* static/style.css */
+body {
+    background-color: #121212; /* Very dark background */
+    color: #E0E0E0; /* Light gray text */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #1E1E1E; /* Slightly lighter dark container */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    background-color: #000000; /* Pure black header */
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 8px 8px 0 0;
+}
+
+header h1 {
+    margin: 0;
+    color: #4CAF50; /* Green highlight for the title */
+}
+
+/* Forms and Inputs */
+input[type="text"], input[type="number"], select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    background-color: #2D2D2D;
+    color: #E0E0E0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Table Style */
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.transaction-table th, .transaction-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.transaction-table th {
+    background-color: #000000;
+    color: #4CAF50;
+}
+
+/* Wallet/Balance Display */
+.wallet-box {
+    padding: 20px;
+    background-color: #000000;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #4CAF50;
+}
+
+.wallet-box h3 {
+    margin-top: 0;
+    color: #E0E0E0;
+}
+
+.wallet-box p {
+    font-size: 2em;
+    font-weight: bold;
+    color: #4CAF50; /* Highlight the balance in green */
+}
+
+/* Specific Row Colors */
+.income-row {
+    color: #4CAF50; /* Green */
+}
+.expense-row {
+    color: #FF6347; /* Tomato/Red */
+}
