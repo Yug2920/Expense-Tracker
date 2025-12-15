@@ -1,0 +1,7 @@
+Flask
+sqlite3
+pandas
+# Pillow # If you need image processing for charts
+# reportlab # For PDF generation
+# matplotlib # For Chart generation
+# clerk-sdk # For Clerk integration
