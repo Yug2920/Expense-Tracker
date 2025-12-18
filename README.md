@@ -53,7 +53,7 @@ The **Expense Tracker** is a modern web application that helps users to mange th
 ---
 ## 🔗 Live 
 
-👉 [View the Website](https://adda8f56-b6de-426d-963b-4d5abc895c38.web.createdevserver.com/)   
+👉 [View the Website (https://expensetracker2920.lovable.app/)   
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
